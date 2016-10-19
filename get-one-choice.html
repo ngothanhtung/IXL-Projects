@@ -21,7 +21,7 @@
     <div>
         <div style="float: left">
             <h3>
-                <span><i class="fa fa-volume-up volume-control" aria-hidden="true"></i></span>
+                <span ng-click="play()"><i class="fa fa-volume-up volume-control" aria-hidden="true"></i></span>
             </h3>
         </div>
         <div>
@@ -32,9 +32,7 @@
                             {{ choice.text }}
                         </span>
                     </div>
-                    <div ng-class="'text-center choice-footer-' + choice.selected">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                    </div>
+
                 </div>
             </div>
 
@@ -59,7 +57,21 @@
 <script src="js/angular/angular-sanitize.js"></script>
 <script src="data/questions/1.json"></script>
 <script>
+    var songs = [];
     var player = document.getElementById("music-player");
+    var songIndex = 0;
+
+    player.addEventListener("ended", function () {
+        if (songIndex > 0) {
+            player.pause();
+        } else {
+            player.src = songs[songIndex];
+            player.play();
+            songIndex++;
+        }
+    });
+
+
     var app = angular.module("myApp", ['ngSanitize']);
     app.controller("myController", function ($http, $scope) {
         $scope.index = 1;
@@ -74,8 +86,16 @@
                     item.selected = false;
                 });
 
-                $scope.play = function (choice) {
-                    player.src = "https://www.ixl.com/practice/audio/v1/US/C/mp3?rawText=" + choice.text + ".";
+                $scope.play = function () {
+                    songIndex = 0;
+                    songs = [];
+                    angular.forEach($scope.choices, function (item, index) {
+                        if (index > 0) {
+                            songs.push("https://www.ixl.com/practice/audio/v1/US/C/mp3?rawText=" + item.text + ".");
+                        }
+                    });
+
+                    player.src = "https://www.ixl.com/practice/audio/v1/US/C/mp3?rawText=" + $scope.choices[0].text + ".";
                     player.play();
                 };
 
@@ -94,6 +114,10 @@
         }
 
         $scope.select = function (choice) {
+            angular.forEach($scope.choices, function (item, index) {
+                item.selected = false;
+            });
+
             choice.selected = !choice.selected;
             if (choice.selected) {
                 $scope.selectedCount++;
