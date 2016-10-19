@@ -1,0 +1,99 @@
+[
+  {
+    "questionKey": "s409v9uq",
+    "question": {
+      "content": {
+        "seed": "-6296410237624627054",
+        "subject": {
+          "name": "LANGUAGE_ARTS"
+        },
+        "multipartInfo": null,
+        "jsSeed": -75652848,
+        "isInteractive": true,
+        "palettes": [],
+        "audioEnabled": true,
+        "content": {
+          "contents": [
+            {
+              "audioOptions": {
+                "audioPaths": {
+                  "AAC": "/~media/2/-nMTkJcIloGg-uc-_0FTXoHXQ2RSZDfob1dnTUsSlNHW9JwHWbtxmROd7WEvT9L7HNZUgNcIiZil5xqKnHut6kNjZlUtPhAjd5wf4Fa88eLHKBHFdCSW3yePyUOhGIzSmET1_phOLNKxpEy4334Z8g.m4a",
+                  "OPUS": "/~media/2/sWsYzDpfz7gKNFlSR9ds0XSSuzUGwTalp4AZ_bX_90Osekv3OLyMRu6MR6TS1rJ8YPrSuKB2so8vX3iW1TtHchsNLQvWH3S1ivTa1uXmDe5ZCiWEXElCZTg2vljjQLWH0L9cq0Vw-SdSnnfdYS6_tg.opus"
+                },
+                "objectType": "RecordedAudio"
+              },
+              "text": "\u003cinstructions\u003eWhich word matches the picture?\u003c/instructions\u003e",
+              "objectType": "RichText"
+            },
+            {
+              "audioOptions": {
+                "audioPaths": {
+                  "AAC": "/~media/1/_Ain8QedCeIOCR0ojbyPkmmNjapJINKgJBR_Ex6-r2SzzQK6UKK5d4Rz8SAakQN2_YEqibl84Trn0hiiakV5svIMTNCS4VmxjprAqzCaiIn8CYZZ6nTXI7QED-mhEvDv1y6Uh4JO2-WF0uhmJqPyXsoQp8SrDb2aqdYQ0CV9DvA.m4a",
+                  "OPUS": "/~media/1/AqsK7i6v5jZvdEWDoi_i1WDRbeGp7iTZwAFsKqFRLdg62MiulXc2Htezm8_P1Ozi-BdFZ3o2RGDQISGcQYYBySL5blHfRooQq58UiGsJonNKNFpnUThM7DubLRdscoA8YSDFe_Ini_qOjCVBZYrfr9MQwyd-ZWoi6gcmmNwWy7U.opus"
+                },
+                "objectType": "RecordedAudio"
+              },
+              "src": "/~media/1/4Hba90fbLhbqJH3Bk2v3zgrZobVk7wQYAZB-Sq3pLyWGNj1gjgP4FphSSGVaBqArLUBHhVDGgMgKdYU78Ev42t0g3McE-T2rEqsnr1bfDw19C-KEeVUDEQEfF8EI8r13JTit81SGjnn6DBBBZ1LDeuKlOoZqk6tBaYIlE5-87NA.svg",
+              "width": 200,
+              "srcSet": {},
+              "height": 200,
+              "objectType": "QMImage"
+            },
+            {
+              "contentAlignment": {
+                "name": "MIDDLE"
+              },
+              "disableFeedbackAudio": false,
+              "contentJustification": {
+                "name": "CENTER"
+              },
+              "tileWidth": {
+                "name": "X_SHORT"
+              },
+              "tilesLayout": {
+                "name": "HORIZONTAL"
+              },
+              "answerToShow": null,
+              "objectType": "GCTextTileMultipleChoice",
+              "mobileAutoSubmit": true,
+              "audioOptions": {
+                "audioDisabled": true,
+                "objectType": "DisabledAudio"
+              },
+              "numSelected": 1,
+              "id": "TextTileMultipleChoice0",
+              "choices": [
+                {
+                  "text": "big",
+                  "objectType": "RichText"
+                },
+                {
+                  "text": "rip",
+                  "objectType": "RichText"
+                }
+              ],
+              "tileHeight": {
+                "name": "REGULAR"
+              },
+              "guessRequired": null
+            }
+          ],
+          "header": null,
+          "objectType": "Section"
+        },
+        "objectType": "ContextHelper",
+        "gradeLevel": {
+          "name": "B"
+        },
+        "citations": [],
+        "countryCode": "US",
+        "_section": {
+          "name": "QUESTION"
+        },
+        "platformizer": "QMPlatformizerImpl"
+      },
+      "objectType": "Question"
+    },
+    "disabled": false
+  }
+]

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IXL - Which two words end with the same sound?</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/ixl.css" rel="stylesheet" type="text/css">
+    <link href="css/sweetalert.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myController" class="container">
+    <div>
+        <h3>
+            <span ng-click="playTitle()"><i class="fa fa-volume-up volume-control" aria-hidden="true"></i></span>
+            Listen to each word. Which two words end with the same sound?
+        </h3>
+    </div>
+
+    <div class="">
+        <div ng-show="q.id == index" ng-repeat="q in questions">
+            <div style="float: left">
+                <h3>
+                    <span ng-click="play(q)"><i class="fa fa-volume-up volume-control" aria-hidden="true"></i></span>
+                </h3>
+            </div>
+            <div style="display: table-cell" ng-repeat="choice in q.choices">
+                <div style="float: left; margin: 20px" ng-click="select(choice)">
+                    <div ng-class="'choice-' + choice.selected">
+                        <img ng-src="{{ choice.imageUrl }}"/>
+                    </div>
+                    <div ng-class="'text-center choice-footer-' + choice.selected">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div style="display: block">
+                <button class="btn btn-lg btn-primary" ng-disabled="selectedCount < 2" ng-hide="isSubmitted" ng-click="submit(q)">Submit</button>
+                <button class="btn btn-lg btn-success" ng-show="isCorrect" ng-click="next()">Next</button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="display: none">
+        <div class="row" style="height: auto; width: 100%; background-color: black; padding: 20px; position: fixed; bottom: 0">
+            <audio preload="auto" id="music-player" style="width: 100%" controls>
+                <source src="" type="audio/mp3">
+            </audio>
+        </div>
+    </footer>
+</div>
+
+<script src="data/questions.js"></script>
+<script>
+    var songs = [];
+    var player = document.getElementById("music-player");
+    var songIndex = 0;
+
+    player.addEventListener("ended", function () {
+        if (songIndex > 2) {
+            player.pause();
+        } else {
+            player.src = songs[songIndex];
+            player.play();
+            songIndex++;
+        }
+    });
+
+    var app = angular.module("myApp", []);
+
+    app.controller("myController", function ($scope) {
+        $scope.isSubmitted = false;
+        $scope.selectedCount = 0;
+
+        $scope.questions = questions;
+        $scope.index = 1;
+        $scope.currentQuestion = $scope.questions[$scope.index];
+        $scope.isCorrect = false;
+
+        $scope.select = function (choice) {
+            choice.selected = !choice.selected;
+            if (choice.selected) {
+                $scope.selectedCount++;
+            } else {
+                $scope.selectedCount--;
+            }
+        };
+
+        $scope.play = function (question) {
+            songIndex = 0;
+            songs = [];
+            angular.forEach(question.choices, function (item, index) {
+                if (index > 0) {
+                    songs.push(item.soundUrl);
+                }
+            });
+
+            player.src = question.choices[0].soundUrl;
+            player.play();
+        };
+
+        $scope.playTitle = function () {
+            songIndex = 0;
+            songs = [];
+            player.src = "https://www.ixl.com/~media/1/bkZLHk_cjWlbB_aw5_m3YlGhq1GVaoIPVpF0y66lOE6aCNbS8RzSbNvyAI96Za4TM7RfRW8G_qdcWtioGstETxxNRLWVTu_J6ekbO-8gK9uIJ8nuYSnsqv_6VfYzOVZmm5wUb9dj-6-bL1gxC7i5tO1SRJkEcNiOq7LGsJZDwQw.m4a";
+            player.play();
+        };
+
+        $scope.next = function () {
+            $scope.isSubmitted = false;
+            $scope.isCorrect = false;
+            $scope.index++;
+        }
+
+        $scope.submit = function (question) {
+            $scope.isSubmitted = true;
+            $scope.selectedCount = 0;
+
+            var isCorrect = true;
+            angular.forEach(question.choices, function (item, index) {
+                console.log("Value", item);
+                if ((item.isCorrect == true && item.selected == false) || (item.isCorrect == false && item.selected == true)) {
+                    isCorrect = false;
+                    return false; // break loop
+                }
+            });
+
+            $scope.isCorrect = !isCorrect;
+            $scope.isCorrect = true;
+
+            if (isCorrect) {
+                swal({
+                    type: 'success',
+                    title: 'Good job!',
+                    //text: 'Good job!',
+                    showConfirmButton: false,
+                    animation: "slide-from-top",
+                    timer: 1000
+                }, function () {
+                    swal.close();
+                });
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Sorry, incorrect...',
+                    //text: 'Sorry, incorrect...',
+                    showConfirmButton: false,
+                    animation: "slide-from-top",
+                    timer: 1000
+                }, function () {
+                    swal.close();
+                });
+            }
+        };
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IXL - Kindergarten > N.2 Choose the short i word that matches the picture</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/ixl.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="container" ng-app="myApp" ng-controller="myController">
+    <h3>
+        <span ng-click="playTitle()"><i class="fa fa-volume-up volume-control" aria-hidden="true"></i></span>
+        <span ng-bind-html="questionText"></span>
+    </h3>
+
+    <div style="padding-bottom: 20px">
+        <img ng-src="{{'http://www.ixl.com' + questionImage.src}}" width="{{ questionImage.width }}" height="{{ questionImage.height }}">
+    </div>
+    <div>
+        <div style="float: left">
+            <h3>
+                <span><i class="fa fa-volume-up volume-control" aria-hidden="true"></i></span>
+            </h3>
+        </div>
+        <div>
+            <div style="display: table-cell" ng-repeat="choice in choices">
+                <div style="float: left; margin: 20px; width: 200px" ng-click="select(choice)">
+                    <div style="padding: 12px;" ng-class="'text-center choice-' + choice.selected">
+                        <span>
+                            {{ choice.text }}
+                        </span>
+                    </div>
+                    <div ng-class="'text-center choice-footer-' + choice.selected">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+            <div style="display: block">
+                <button class="btn btn-lg btn-primary" ng-click="submit()">Submit</button>
+                <button class="btn btn-lg btn-success" ng-show="isCorrect" ng-click="next()">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="display: none">
+    <div class="row" style="height: auto; width: 100%; background-color: black; padding: 20px; position: fixed; bottom: 0">
+        <audio preload="auto" id="music-player" style="width: 100%" controls>
+            <source src="" type="audio/mp3">
+        </audio>
+    </div>
+</footer>
+
+<script src="js/angular/angular.min.js"></script>
+<script src="js/angular/angular-sanitize.js"></script>
+<script src="data/questions/1.json"></script>
+<script>
+    var player = document.getElementById("music-player");
+    var app = angular.module("myApp", ['ngSanitize']);
+    app.controller("myController", function ($http, $scope) {
+        $scope.index = 1;
+        $scope.start = function () {
+            $http.get('data/questions/' + $scope.index + '.json').success(function (response) {
+                $scope.question = response[0];
+                $scope.questionText = $scope.question.question.content.content.contents[0].text;
+                $scope.questionImage = $scope.question.question.content.content.contents[1];
+                $scope.choices = $scope.question.question.content.content.contents[2].choices;
+
+                angular.forEach($scope.choices, function (item, index) {
+                    item.selected = false;
+                });
+
+                $scope.play = function (choice) {
+                    player.src = "https://www.ixl.com/practice/audio/v1/US/C/mp3?rawText=" + choice.text + ".";
+                    player.play();
+                };
+
+                $scope.playTitle = function () {
+                    player.src = "https://www.ixl.com/practice/audio/v1/US/C/mp3?rawText=" + "Which word matches the picture?" + "";
+                    player.play();
+                };
+            });
+        }
+
+        $scope.start($scope.index);
+        
+        $scope.submit = function () {
+            $scope.index++;
+            $scope.start($scope.index);
+        }
+
+        $scope.select = function (choice) {
+            choice.selected = !choice.selected;
+            if (choice.selected) {
+                $scope.selectedCount++;
+            } else {
+                $scope.selectedCount--;
+            }
+        };
+    });
+
+</script>
+</body>
+</html>

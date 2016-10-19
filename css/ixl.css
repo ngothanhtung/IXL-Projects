@@ -1,0 +1,36 @@
+.choice-true {
+    cursor: pointer;
+    padding: 0px;
+    border: solid 3px #03ABE4;
+    border-radius: 0px;
+}
+
+.choice-footer-true {
+    padding: 4px;
+    color: white;
+    background-color: #03ABE4;
+    cursor: pointer;
+    border: solid 3px #03ABE4;
+    border-radius: 0px;
+}
+
+.choice-false {
+    cursor: pointer;
+    padding: 0px;
+    border: solid 3px #beedfd;
+    border-radius: 0px;
+}
+
+.choice-footer-false {
+    padding: 4px;
+    color: white;
+    background-color: #beedfd;
+    cursor: pointer;
+    border: solid 3px #beedfd;
+    border-radius: 0px;
+}
+
+.volume-control:hover {
+    color: #00AEEF;
+    cursor: pointer;
+}
